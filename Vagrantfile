@@ -110,6 +110,11 @@ Vagrant.configure("2") do |config|
   # network IP
   config.vm.network :private_network, ip: settings[vagrant_vm]['vm']['network']['private_network'].to_s
 
+  # public network IP
+  if !settings[vagrant_vm]['vm']['network']['public_network'].nil?
+    config.vm.network :public_network, ip: settings[vagrant_vm]['vm']['network']['public_network'].to_s
+  end
+
   # Forwarded ports
   settings[vagrant_vm]['vm']['network']['forwarded_port'].each do |item, port|
     if !port['guest'].nil? and 
