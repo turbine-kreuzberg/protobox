@@ -38,8 +38,10 @@
 
 - name: virtualhosts | deactivates the default virtualhost
   command: a2dissite default
+  ignore_errors: True
 
 - name: virtualhosts | deactivates the default ssl virtualhost
   command: a2dissite default-ssl
+  ignore_errors: True
   notify:
     - apache-restart

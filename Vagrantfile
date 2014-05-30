@@ -112,6 +112,14 @@ Vagrant.configure("2") do |config|
     config.vm.box_check_update = settings[vagrant_vm]['vm']['box_check_update']
   end
 
+  # Check/update VirtualBox Guest Additions (requires plugin 'vagrant-vbguest')
+  if Vagrant.has_plugin?('vagrant-vbguest')
+    # Skip check/update if setting 'vm/vbguest_auto_update' is 'false'
+    if !settings[vagrant_vm]['vm']['vbguest_auto_update'].nil? and settings[vagrant_vm]['vm']['vbguest_auto_update'] == 'false'
+      config.vbguest.auto_update = false
+    end
+  end
+
   # Hostname
   if !settings[vagrant_vm]['vm']['hostname'].nil?
     config.vm.hostname = settings[vagrant_vm]['vm']['hostname']
