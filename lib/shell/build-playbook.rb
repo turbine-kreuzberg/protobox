@@ -120,6 +120,11 @@ def build_playbook(yaml, protobox_dir)
     entries << { "role" => "ngrok", "when" => "ngrok is defined and ngrok.install == 1" }
   end
 
+  # Tools - n98-magerun
+  if !yaml['n98magerun'].nil? and yaml['n98magerun']['install'].to_i == 1
+    entries << { "role" => "n98magerun", "when" => "n98magerun is defined and n98magerun.install == 1" }
+  end
+
   #
   # Applications
   #

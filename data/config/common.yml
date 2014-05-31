@@ -12,6 +12,7 @@ vagrant:
   vm:
 #    box: "chef/ubuntu-10.04"
 #    box: "chef/ubuntu-12.04"
+#    box: "chef/ubuntu-12.10"
     box: "chef/ubuntu-13.04"
 #    box: "chef/ubuntu-13.10"
     box_check_update: 'true'
@@ -115,12 +116,19 @@ apache:
   default_vhost: false
   mpm_module: prefork
   vhosts:
-    - name: app
+    - name: dashboard
       servername: protobox.dev
-      serveraliases:
-        - protobox.local.de
+      serveraliases: [ ]
+      docroot: /srv/www/web/protobox
+      port: '80'
+      setenv:
+        - 'APP_ENV dev'
+      override:
+        - All
+    - name: app
+      servername: protobox.local.de
+      serveraliases: [ ]
       docroot: /var/www/protobox
-#      docroot: /srv/www/web/protobox
       port: '80'
       setenv:
         - 'APP_ENV dev'
@@ -158,8 +166,8 @@ php:
   install: 1
 #  version: '53'
   # PHP 5.4 is only supported up to Ubuntu 13.04 (raring)
-  version: '54'
-#  version: '55'
+#  version: '54'
+  version: '55'
   modules:
     - php5-cli
     - php5-intl
@@ -168,17 +176,17 @@ php:
     - php5-gd
     - php5-xcache
   pear:
-    install: 1
+    install: 0
     channels: [ ]
     modules: [ ]
   pecl:
-    install: 1
+    install: 0
     modules: [ ]
   apc:
     install: 0
   composer: 
-    install: 0
-  mailcatcher: 
+    install: 1
+  mailcatcher:
     install: 0
   phpmyadmin:
     install: 0
@@ -194,7 +202,7 @@ php:
       remote_port: '9000'
   xhprof:
     # Note: PECL is required for installing XHProf
-    install: 1
+    install: 0
     xhgui: 0
   ini:
     display_errors: 'On'
@@ -274,7 +282,7 @@ rabbitmq:
   install: 0
 
 node:
-  install: 1
+  install: 0
   npm:
     - grunt
     - grunt-cli
@@ -319,6 +327,13 @@ ngrok:
   #    proto: 'https 8080'
   #  ssh:
   #    proto: 'tcp: 22'
+
+n98magerun:
+  install: 0
+  # you may install n98magerun either by downloading or with composer
+#  method: download
+  method: composer
+  path: /usr/local/bin
 
 applications:
   install: 0

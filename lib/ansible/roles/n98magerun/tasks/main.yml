@@ -1,0 +1,21 @@
+- name: n98magerun | require composer
+  fail: msg="PHP - Composer is required"
+  when: php.composer is not defined or php.composer.install != 1
+
+- name: n98magerun | check if installed
+  stat: >
+    path={{ n98magerun.path|default('/usr/local/bin') }}/n98-magerun
+  register: n98magerun_installed
+
+#- name: n98magerun | clone git repository
+#  git: >
+#    repo=https://github.com/netz98/n98magerun
+#    dest=/usr/local/bin/n98magerun
+#    accept_hostkey=yes
+#  when: not n98magerun_installed.stat.exists and (item.method is not defined or item.method == 'composer')
+
+- name: n98magerun | install with composer
+  command: >
+    composer create-project n98/magerun ./n98-magerun --prefer-dist
+    chdir={{ n98magerun.path|default('/usr/local/bin') }}
+  when: not n98magerun_installed.stat.exists and (n98magerun.method is not defined or n98magerun.method == 'composer')
