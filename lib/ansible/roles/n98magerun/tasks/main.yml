@@ -4,18 +4,33 @@
 
 - name: n98magerun | check if installed
   stat: >
-    path={{ n98magerun.path|default('/usr/local/bin') }}/n98-magerun
+    path=/usr/local/bin/n98-magerun.phar
   register: n98magerun_installed
 
-#- name: n98magerun | clone git repository
-#  git: >
-#    repo=https://github.com/netz98/n98magerun
-#    dest=/usr/local/bin/n98magerun
-#    accept_hostkey=yes
-#  when: not n98magerun_installed.stat.exists and (item.method is not defined or item.method == 'composer')
+- name: n98magerun | clone git repository
+  git: >
+    repo=https://github.com/netz98/n98-magerun
+    dest={{ ansible_env.HOME }}/n98-magerun
+    accept_hostkey=yes
+  when: not n98magerun_installed.stat.exists and (n98magerun.method is not defined or n98magerun.method == 'composer')
 
 - name: n98magerun | install with composer
   command: >
-    composer create-project n98/magerun ./n98-magerun --prefer-dist
-    chdir={{ n98magerun.path|default('/usr/local/bin') }}
+    composer install
+    chdir={{ ansible_env.HOME }}/n98-magerun
   when: not n98magerun_installed.stat.exists and (n98magerun.method is not defined or n98magerun.method == 'composer')
+
+- name: n98magerun | make n98-magerun available system-wide
+  command: >
+    cp ./n98-magerun.phar /usr/local/bin/
+    chdir={{ ansible_env.HOME }}/n98-magerun
+  when: not n98magerun_installed.stat.exists and (n98magerun.method is not defined or n98magerun.method == 'composer')
+
+- name: n98magerun | add custom configuration with own Magento repositories
+  template: >
+    src=n98-magerun.yaml.j2
+    dest={{ ansible_env.HOME }}/.n98-magerun.yaml
+    owner={{ ansible_env.USER }}
+    group={{ ansible_env.USER }}
+    mode=0660
+  when: not n98magerun_installed.stat.exists

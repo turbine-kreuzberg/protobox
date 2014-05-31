@@ -1,0 +1,7 @@
+- name: compatibility | require composer
+  fail: msg="PHP - Composer is required"
+  when: php.composer is not defined or php.composer.install != 1
+
+- name: compatibility | require n98-magerun
+  fail: msg="n98-magerun is required"
+  when: n98magerun is not defined or n98magerun.install != 1

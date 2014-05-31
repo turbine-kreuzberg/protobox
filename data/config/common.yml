@@ -329,11 +329,10 @@ ngrok:
   #    proto: 'tcp: 22'
 
 n98magerun:
-  install: 0
+  install: 1
   # you may install n98magerun either by downloading or with composer
 #  method: download
   method: composer
-  path: /usr/local/bin
 
 applications:
   install: 0

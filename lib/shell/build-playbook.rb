@@ -170,6 +170,11 @@ def build_playbook(yaml, protobox_dir)
       entries << { "role" => "pyrocms", "dir" => "applications/pyrocms", "when" => "applications.pyrocms is defined" }
     end
 
+    # App - Magento
+    if !yaml['applications']['magento'].nil?
+      entries << { "role" => "magento", "dir" => "applications/magento", "when" => "applications.magento is defined" }
+    end
+
   end
 
   play['roles'] = entries
