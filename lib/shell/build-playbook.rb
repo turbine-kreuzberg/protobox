@@ -125,6 +125,11 @@ def build_playbook(yaml, protobox_dir)
     entries << { "role" => "n98magerun", "when" => "n98magerun is defined and n98magerun.install == 1" }
   end
 
+  # Samba
+  if !yaml['samba'].nil? and yaml['samba']['install'].to_i == 1
+    entries << { "role" => "samba", "when" => "samba is defined and samba.install == 1" }
+  end
+
   #
   # Applications
   #

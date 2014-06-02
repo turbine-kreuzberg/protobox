@@ -334,6 +334,9 @@ n98magerun:
 #  method: download
   method: composer
 
+samba:
+  install: 1
+
 applications:
   install: 0
   #wordpress:

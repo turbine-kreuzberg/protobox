@@ -1,0 +1,15 @@
+#- name: magento | install
+#  command: >
+#    n98-magerun.phar install \
+#      --dbHost="localhost" \
+#      --dbUser="user" \
+#      --dbPass="user" \
+#      --dbName="magentodb" \
+#      --installSampleData=yes \
+#      --useDefaultConfigParams=yes \
+#      --magentoVersionByName="enterprise-1.14.0.1" \
+#      --installationFolder="magento" \
+#      --baseUrl="http://magento.vagrant-local.de/"
+#    chdir={{ ansible_env.HOME }}/n98-magerun
+#  when: not n98magerun_installed.stat.exists and (n98magerun.method is not defined or n98magerun.method == 'composer')
+

@@ -1,0 +1,26 @@
+- name: samba | check if installed
+  stat: >
+    path=/etc/samba
+  register: samba_installed
+
+- name: samba | install packages
+  apt: >
+    pkg={{ item }}
+    state=latest
+  with_items:
+    - samba
+    - smbclient
+  when: not samba_installed.stat.exists
+
+- name: samba | add samba user 'vagrant'
+  command: >
+    (echo "vagrant"; echo {{ samba.password|default("vagrant") }}) | smbpasswd -s -a {{ samba.user|default("vagrant") }}
+  when: not samba_installed.stat.exists
+
+# TODO: add custom config and root/www/home shares
+#- name: samba | add custom configuration
+
+- name: samba | restart service
+  service: >
+    name=samba
+    state=restarted
