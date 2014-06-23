@@ -1,32 +1,32 @@
-- name: n98magerun | require composer
+- name: require composer
   fail: msg="PHP - Composer is required"
   when: php.composer is not defined or php.composer.install != 1
 
-- name: n98magerun | check if installed
+- name: check if installed
   stat: >
     path=/usr/local/bin/n98-magerun.phar
   register: n98magerun_installed
 
-- name: n98magerun | clone git repository
+- name: clone git repository
   git: >
     repo=https://github.com/netz98/n98-magerun
     dest={{ ansible_env.HOME }}/n98-magerun
     accept_hostkey=yes
   when: not n98magerun_installed.stat.exists and (n98magerun.method is not defined or n98magerun.method == 'composer')
 
-- name: n98magerun | install with composer
+- name: install with composer
   command: >
     composer install
     chdir={{ ansible_env.HOME }}/n98-magerun
   when: not n98magerun_installed.stat.exists and (n98magerun.method is not defined or n98magerun.method == 'composer')
 
-- name: n98magerun | make n98-magerun available system-wide
+- name: make n98-magerun available system-wide
   command: >
     cp ./n98-magerun.phar /usr/local/bin/
     chdir={{ ansible_env.HOME }}/n98-magerun
   when: not n98magerun_installed.stat.exists and (n98magerun.method is not defined or n98magerun.method == 'composer')
 
-- name: n98magerun | add custom configuration with own Magento repositories
+- name: add custom configuration with own Magento repositories
   template: >
     src=n98-magerun.yaml.j2
     dest={{ ansible_env.HOME }}/.n98-magerun.yaml

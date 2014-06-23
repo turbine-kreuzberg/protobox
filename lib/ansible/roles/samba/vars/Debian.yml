@@ -1,0 +1,7 @@
+pkgs_samba:
+    - samba
+    - smbclient
+
+service_samba: smbd
+
+path_samba: /etc/samba
