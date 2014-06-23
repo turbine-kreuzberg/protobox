@@ -342,8 +342,8 @@ applications:
   magento:
     - name: test
       install: 1
-      version: 'enterprise-1.14.0.1'
-      path: /srv/www/web/protobox
+      version: 'enterprise-1.14'
+      path: /var/www/protobox
 #      dbHost: 'localhost'
 #      dbName: 'magento_ee_1_14'
 #      dbUser: 'user'

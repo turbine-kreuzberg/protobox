@@ -1,22 +1,27 @@
-#- name: magento | check if installed
-#  stat: >
-#    path=/usr/local/bin/n98-magerun.phar
-#  register: magento_installed
+# TODO: check for installed webserver (apache2 or nginx)
+- name: create target folders
+  file: >
+    path={{ item.path }}
+    state=directory
+    group={{ apache.user }}
+    group={{ apache.group }}
+  with_items: applications.magento
 
 - name: install
-  shell: >
-    n98-magerun.phar install \
-      --dbHost="{{ item.dbHost|default('localhost') }}" \
-      --dbUser="{{ item.dbUser|default('user') }}" \
-      --dbPass="{{ item.dbPassword|default('user') }}" \
-      --dbName="{{ item.db|default('app') }}" \
-      --installSampleData="{{ item.installSampleData|default('yes') }}" \
-      --useDefaultConfigParams="{{ item.useDefaultConfigParams|default('yes') }}" \
-      --magentoVersionByName="{{ item.version }}" \
-      --installationFolder="{{ item.installationFolder|default('magento') }}" \
+  command: >
+    n98-magerun.phar install
+      --dbHost="{{ item.dbHost|default('localhost') }}"
+      --dbUser="{{ item.dbUser|default('user') }}"
+      --dbPass="{{ item.dbPassword|default('user') }}"
+      --dbName="{{ item.db|default('app') }}"
+      --installSampleData="{{ item.installSampleData|default('yes') }}"
+      --useDefaultConfigParams="{{ item.useDefaultConfigParams|default('yes') }}"
+      --magentoVersionByName="{{ item.version }}"
+      --installationFolder="{{ item.installationFolder|default('magento') }}"
       --baseUrl="{{ item.installationFolder|default('http://magento.vagrant-local.de') }}"
     chdir={{ item.path }}/
+  sudo_user: vagrant
   with_items: applications.magento
-  when: n98magerun_installed.stat.exists
+#  when: n98magerun_installed.stat.exists
 #  when: n98magerun_installed.stat.exists and not magento_installed.stat.exists
 
