@@ -1,9 +1,7 @@
 ---
 protobox:
   version: 0.0.1
-  build: custom
-  document: lAl
-  description: 'A custom build from getprotobox.com/share/lAl'
+  document: votum123
   dashboard:
     install: 1
     path: /srv/www/web/protobox
@@ -41,10 +39,16 @@ vagrant:
     provision:
       ansible:
         playbook: default
+        remote_user: vagrant
+        sudo_user: vagrant
+        sudo: yes
         #hosts: "webservers"
         #inventory: "ansible/inventory"
         #verbose: "yes"
-        #extra_vars: 
+        #verbose: "vv"     # add more verbose/debug output
+        #verbose: "vvv"    # add a bunch of verbose/debug output
+        verbose: "vvvv"   # add an incredible whole lot of verbose/debug output
+        #extra_vars:
         #  ntp_server: "pool.ntp.org"
         #  nginx_workers: 4'
     synced_folder:
@@ -95,11 +99,14 @@ server:
     #  - name: patrick
     #    entry: 'test\n\ttest2'
     #ssh config entries
-    #config:
+    config:
     #  - name: github
     #    file: /srv/www/data/ssh/git_config
     #  - name: github
     #    entry: 'host *\n\tIdentityFile ~/.ssh/github_id_rsa'
+      - name: ssh-config
+        entry: 'Host gitlab-extern git.votum-media.net\nHostname git.votum-media.net\nIdentityFile ~/.ssh/id_rsa'
+
   dotfiles:
     install: 0
     repo: git@github.com:patrickheeney/dotfiles.git
@@ -344,6 +351,7 @@ applications:
       install: 1
       version: 'enterprise-1.14'
       path: /var/www/protobox
+      url:
 #      dbHost: 'localhost'
 #      dbName: 'magento_ee_1_14'
 #      dbUser: 'user'

@@ -16,6 +16,9 @@
   when: ansible_os_family in ['CentOS', 'Fedora', 'OpenSuse', 'RedHat']
 
 # Configuration
+- name: apache | add vagrant user to apache group
+  command: usermod -a -G {{ apache.group }} vagrant
+  when: ansible_os_family == 'Debian'
 
 - name: apache | set httpd.conf 
   template: >

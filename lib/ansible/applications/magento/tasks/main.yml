@@ -3,3 +3,6 @@
 - include: dependencies.yml
 
 - include: application.yml
+
+- include: install.yml user=vagrant
+#- include: install.yml
