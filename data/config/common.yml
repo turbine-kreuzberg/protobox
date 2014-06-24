@@ -170,7 +170,7 @@ hhvm:
     use_hhvm: 1
 
 php:
-  install: 1
+  install: 0
 #  version: '53'
   # PHP 5.4 is only supported up to Ubuntu 13.04 (raring)
 #  version: '54'
@@ -349,7 +349,7 @@ applications:
   magento:
     - name: test
       install: 1
-      version: 'enterprise-1.14'
+      version: 'enterprise-1.13'
       path: /var/www/protobox
       url:
 #      dbHost: 'localhost'
