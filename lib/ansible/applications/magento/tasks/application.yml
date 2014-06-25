@@ -11,7 +11,7 @@
   when: apache is defined and apache.install == 1 and item.install == 1
 
 - name: install
-  remote_user: vagrant
+#  remote_user: vagrant
 #  user: vagrant
 #  sudo_user: vagrant
 #  sudo: no
@@ -23,12 +23,12 @@
   when: result_magento_create_folders|success and item.install == 1
   register: result_magento_installed
 
-- name: create database
+- name: mysql | create database
   mysql_db: name={{ item.dbName|default('magento') }} state=present
   with_items: applications.magento
   when: result_magento_installed|success and item.install == 1
 
-- name: create database user
+- name: mysql | create database user
   mysql_user: name={{ item.dbUser|default('user') }} password={{ item.dbPassword|default('user') }} priv={{ item.dbName|default('magento') }}.*:ALL host='localhost' state=present
   with_items: applications.magento
   when: result_magento_installed|success and item.install == 1
