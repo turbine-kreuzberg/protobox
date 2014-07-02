@@ -23,4 +23,5 @@ index.html
 # OS or Editor folders
 .DS_Store
 Thumbs.db
-/.idea
+logs
+.idea
