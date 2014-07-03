@@ -11,13 +11,8 @@
   when: apache is defined and apache.install == 1 and item.install == 1
 
 - name: install
-#  remote_user: vagrant
-#  user: vagrant
-#  sudo_user: vagrant
-#  sudo: no
-#    n98-magerun.phar install --dbHost="{{ item.dbHost|default('localhost') }}" --dbUser="{{ item.dbUser|default('user') }}" --dbPass="{{ item.dbPassword|default('user') }}" --dbName="{{ item.dbName|default('magento') }}" --installSampleData="{{ item.installSampleData|default('yes') }}" --useDefaultConfigParams="{{ item.useDefaultConfigParams|default('yes') }}" --magentoVersionByName="{{ item.version }}" --installationFolder="{{ item.path|default('magento') }}" --baseUrl="{{ item.installationFolder|default('http://magento.vagrant-local.de') }}"
   command: >
-    su - vagrant -c 'n98-magerun.phar install --dbHost="{{ item.dbHost|default('localhost') }}" --dbUser="{{ item.dbUser|default('user') }}" --dbPass="{{ item.dbPassword|default('user') }}" --dbName="{{ item.dbName|default('magento') }}" --installSampleData="{{ item.installSampleData|default('yes') }}" --useDefaultConfigParams="{{ item.useDefaultConfigParams|default('yes') }}" --magentoVersionByName="{{ item.version }}" --installationFolder="{{ item.path|default('magento') }}" --baseUrl="{{ item.installationFolder|default('http://magento.vagrant-local.de') }}"'
+    su - vagrant -c 'n98-magerun.phar install --dbHost="{{ item.dbHost|default('localhost') }}" --dbUser="{{ item.dbUser|default('user') }}" --dbPass="{{ item.dbPassword|default('user') }}" --dbName="{{ item.dbName|default('magento') }}" --installSampleData="{{ item.installSampleData|default('yes') }}" --useDefaultConfigParams="{{ item.useDefaultConfigParams|default('yes') }}" --magentoVersionByName="{{ item.version }}" --installationFolder="{{ item.path|default('magento') }}" --baseUrl="{{ item.installationFolder|default('http://www.magento.dev') }}"'
     chdir={{ item.path }}/
   with_items: applications.magento
   when: result_magento_create_folders|success and item.install == 1

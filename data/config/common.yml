@@ -44,10 +44,10 @@ vagrant:
         sudo: yes
         #hosts: "webservers"
         #inventory: "ansible/inventory"
-        #verbose: "yes"
+        verbose: "yes"
         #verbose: "vv"     # add more verbose/debug output
         #verbose: "vvv"    # add a bunch of verbose/debug output
-        verbose: "vvvv"   # add an incredible whole lot of verbose/debug output
+        #verbose: "vvvv"   # add an incredible whole lot of verbose/debug output
         #extra_vars:
         #  ntp_server: "pool.ntp.org"
         #  nginx_workers: 4'
@@ -170,7 +170,7 @@ hhvm:
     use_hhvm: 1
 
 php:
-  install: 0
+  install: 1
 #  version: '53'
   # PHP 5.4 is only supported up to Ubuntu 13.04 (raring)
 #  version: '54'
@@ -182,6 +182,7 @@ php:
     - php5-curl
     - php5-gd
     - php5-xcache
+#    - php5-imagick
   pear:
     install: 0
     channels: [ ]
