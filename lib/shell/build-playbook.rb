@@ -130,6 +130,11 @@ def build_playbook(yaml, protobox_dir)
     entries << { "role" => "samba", "when" => "samba is defined and samba.install == 1" }
   end
 
+  # Git repositories
+  if !yaml['git'].nil? and yaml['git']['install'].to_i == 1
+    entries << { "role" => "git", "when" => "git is defined and git.install == 1" }
+  end
+
   #
   # Applications
   #

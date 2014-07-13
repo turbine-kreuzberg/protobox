@@ -106,8 +106,10 @@ server:
     #    file: /srv/www/data/ssh/git_config
     #  - name: github
     #    entry: 'host *\n\tIdentityFile ~/.ssh/github_id_rsa'
-      - name: ssh-config
+      - name: vtm-gitlab
         entry: 'Host gitlab-extern git.votum-media.net\nHostname git.votum-media.net\nIdentityFile ~/.ssh/id_rsa'
+      - name: bitbucket
+        entry: 'Host bitbucket-extern bitbucket.org\nHostname bitbucket.org\nIdentityFile ~/.ssh/id_rsa'
 
   dotfiles:
     install: 0
@@ -115,6 +117,17 @@ server:
     #files:
     #  - /srv/www/data/dot/file
     #bash_aliases: null
+
+git:
+  install: 1
+  repositories:
+    - name: mybook_shop
+      url: git@bitbucket.org:mybookde/mybook_shop.git
+      path: /var/www/mybook_shop
+#      user: vagrant
+#      user: www-data
+      # version: SHA-1 hash, HEAD, branch name, or tag name
+#      version: master
 
 apache:
   install: 0
@@ -152,7 +165,7 @@ nginx:
       server_name: protobox.dev
       server_aliases:
         - protobox.local.de
-      www_root: /var/www/mybook_portal
+      www_root: /var/www/mybook_shop
       listen_port: '80'
       index_files:
         - index.html

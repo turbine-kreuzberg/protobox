@@ -1,0 +1,7 @@
+- name: clone repositories
+  git: >
+    repo={{ item.url }}
+    dest={{ item.path }}
+    accept_hostkey=yes
+#    key_file={{ ansible_env.HOME }}/.ssh/id_rsa
+  with_items: git.repositories
