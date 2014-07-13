@@ -31,16 +31,18 @@
   file: >
     path={{ recycle_bin }}
     state=directory
-    owner={{ vagrant }}
-    group={{ vagrant }}
+    owner=vagrant
+    group=vagrant
     mode=0770
-  when: not samba_installed.stat.exists
+  register: recycle_folder_created
+#  when: not samba_installed.stat.exists
 
 - name: symlink recycle folder to vagrant home folder
   file: >
     src={{ recycle_bin }}
     dest={{ ansible_env.HOME }}/recycle_bin
     state=link
+  when: recycle_folder_created|success
 
 - name: restart service
   service: >
