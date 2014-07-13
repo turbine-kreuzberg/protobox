@@ -27,7 +27,7 @@ vagrant:
       virtualbox:
         modifyvm:
           # name of the vm in VirtualBox
-          name: protobox2
+          name: protobox-mybook
           natdnshostresolver1: 'on'
           memory: '2048'
         setextradata:
@@ -83,6 +83,8 @@ vagrant:
 server:
   packages:
     - vim
+    - memcached
+    - uwsgi
   ssh:
     #authorized_keys are public keys for remote machines
     #authorized_keys:
@@ -115,7 +117,7 @@ server:
     #bash_aliases: null
 
 apache:
-  install: 1
+  install: 0
   modules:
     - rewrite
   user: vagrant
@@ -143,14 +145,14 @@ apache:
         - All
 
 nginx:
-  install: 0
+  install: 1
   mpm_module: fpm
   vhosts:
     - name: app
       server_name: protobox.dev
       server_aliases:
         - protobox.local.de
-      www_root: /srv/www/web/protobox
+      www_root: /var/www/mybook_portal
       listen_port: '80'
       index_files:
         - index.html
@@ -173,16 +175,17 @@ php:
   install: 1
 #  version: '53'
   # PHP 5.4 is only supported up to Ubuntu 13.04 (raring)
-#  version: '54'
-  version: '55'
+  version: '54'
+#  version: '55'
   modules:
     - php5-cli
-    - php5-intl
-    - php5-mcrypt
-    - php5-curl
-    - php5-gd
-    - php5-xcache
+#    - php5-intl
+#    - php5-mcrypt
+#    - php5-curl
+#    - php5-gd
+#    - php5-xcache
 #    - php5-imagick
+    - php5-memcache
   pear:
     install: 0
     channels: [ ]
@@ -346,7 +349,7 @@ samba:
   install: 1
 
 applications:
-  install: 1
+  install: 0
   magento:
     - name: test
       install: 1
