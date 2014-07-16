@@ -9,9 +9,9 @@ protobox:
 vagrant:
   vm:
 #    box: "chef/ubuntu-10.04"
-#    box: "chef/ubuntu-12.04"
+    box: "chef/ubuntu-12.04"
 #    box: "chef/ubuntu-12.10"
-    box: "chef/ubuntu-13.04"
+#    box: "chef/ubuntu-13.04"
 #    box: "chef/ubuntu-13.10"
     box_check_update: 'true'
     vbguest_auto_update: 'false'
@@ -57,7 +57,7 @@ vagrant:
         source: ./
         target: /srv/www
         type: nfs
-        rsync__args: 
+        rsync__args:
           - '--verbose'
           - '--archive'
           - '--delete'
@@ -210,7 +210,7 @@ php:
     modules: [ ]
   apc:
     install: 0
-  composer: 
+  composer:
     install: 1
   mailcatcher:
     install: 0
@@ -262,7 +262,7 @@ postgresql:
     - name: app
       user: root
       password: root
-      grant: 
+      grant:
         - CREATEDB
         - SUPERUSER
       sql_file: ''
@@ -400,8 +400,8 @@ applications:
   #    install: 1
   #    path: /srv/www/web/lemonstand
   #    options:
-  #      holder: 
-  #      serial: 
+  #      holder:
+  #      serial:
   #      dbhost: localhost
   #      dbname: lemonstand
   #      dbuser: root
