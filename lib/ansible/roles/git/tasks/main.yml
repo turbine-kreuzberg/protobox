@@ -3,5 +3,7 @@
     repo={{ item.url }}
     dest={{ item.path }}
     accept_hostkey=yes
-#    key_file={{ ansible_env.HOME }}/.ssh/id_rsa
+    key_file={{item.key|default('/home/vagrant/.ssh/id_rsa')}}
   with_items: git.repositories
+#  remote_user: vagrant
+  ignore_errors: True

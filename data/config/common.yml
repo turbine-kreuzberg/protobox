@@ -126,6 +126,8 @@ git:
       path: /var/www/mybook_shop
 #      user: vagrant
 #      user: www-data
+      # ssh key, default: /home/vagrant/.ssh/ida_rsa
+#      key: ~/.ssh/ida_rsa
       # version: SHA-1 hash, HEAD, branch name, or tag name
 #      version: master
 
