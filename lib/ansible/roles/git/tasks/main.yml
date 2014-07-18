@@ -5,5 +5,24 @@
     accept_hostkey=yes
     key_file={{item.key|default('/home/vagrant/.ssh/id_rsa')}}
   with_items: git.repositories
+  register: git_cloned
 #  remote_user: vagrant
   ignore_errors: True
+
+#- name: check result
+#  debug: msg="git_cloned= {{git_cloned}}"
+
+- name: set owner/group for files/folders
+  file: >
+    dest={{ item.path }}
+    recurse=yes
+    owner={{item.user|default('vagrant')}}
+    group={{item.group|default('www-data')}}
+    state=directory
+  with_items: git.repositories
+  when: git_cloned.changed
+
+- name: set file/folder permissions
+  command: chmod -R g+rwX "{{ item.path }}"
+  with_items: git.repositories
+  when: git_cloned.changed

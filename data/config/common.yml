@@ -27,7 +27,7 @@ vagrant:
       virtualbox:
         modifyvm:
           # name of the vm in VirtualBox
-          name: protobox-mybook
+          name: protobox-umg-eventtool
           natdnshostresolver1: 'on'
           memory: '2048'
         setextradata:
@@ -121,18 +121,18 @@ server:
 git:
   install: 1
   repositories:
-    - name: mybook_shop
-      url: git@bitbucket.org:mybookde/mybook_shop.git
-      path: /var/www/mybook_shop
+    - name: umg_eventtool
+      url: git@git.votum-media.net:universal-music/event-tool.git
+      path: /var/www/protobox
 #      user: vagrant
-#      user: www-data
+#      group: www-data
       # ssh key, default: /home/vagrant/.ssh/ida_rsa
 #      key: ~/.ssh/ida_rsa
       # version: SHA-1 hash, HEAD, branch name, or tag name
 #      version: master
 
 apache:
-  install: 0
+  install: 1
   modules:
     - rewrite
   user: vagrant
@@ -160,7 +160,7 @@ apache:
         - All
 
 nginx:
-  install: 1
+  install: 0
   mpm_module: fpm
   vhosts:
     - name: app
@@ -188,9 +188,9 @@ hhvm:
 
 php:
   install: 1
-#  version: '53'
+  version: '53'
   # PHP 5.4 is only supported up to Ubuntu 13.04 (raring)
-  version: '54'
+#  version: '54'
 #  version: '55'
   modules:
     - php5-cli
@@ -211,9 +211,9 @@ php:
   apc:
     install: 0
   composer:
-    install: 1
-  mailcatcher:
     install: 0
+  mailcatcher:
+    install: 1
   phpmyadmin:
     install: 0
   xdebug:
@@ -355,7 +355,7 @@ ngrok:
   #    proto: 'tcp: 22'
 
 n98magerun:
-  install: 1
+  install: 0
   # you may install n98magerun either by downloading or with composer
 #  method: download
   method: composer
