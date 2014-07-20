@@ -118,6 +118,12 @@ server:
     #  - /srv/www/data/dot/file
     #bash_aliases: null
 
+myproject:
+  install: 1
+  scripts:
+    - name: media-mount
+      path: data/scripts/add-mount.sh
+
 git:
   install: 1
   repositories:
