@@ -122,7 +122,7 @@ myproject:
   install: 1
   scripts:
     - name: media-mount
-      path: data/scripts/add-mount.sh
+      path: /vagrant/data/scripts/add-mount.sh
 
 git:
   install: 1
@@ -194,9 +194,9 @@ hhvm:
 
 php:
   install: 1
-#  version: '53'
+  version: '53'
   # PHP 5.4 is only supported up to Ubuntu 13.04 (raring)
-  version: '54'
+#  version: '54'
 #  version: '55'
   modules:
     - php5-cli

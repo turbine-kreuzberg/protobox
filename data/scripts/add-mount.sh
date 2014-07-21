@@ -13,4 +13,6 @@ if [ -z "$CHECK" ]; then
     echo "$NEW_MOUNT" >> /etc/fstab
 
     mount -a
+
+    ln -s "$MNT_DIR" /var/www/mybook_shop/media
 fi
