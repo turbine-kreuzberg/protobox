@@ -201,25 +201,32 @@ php:
   modules:
     - php5-cli
 #    - php5-intl
-#    - php5-mcrypt
-#    - php5-curl
-#    - php5-gd
+    - php5-mcrypt
+    - php5-curl
+    - php5-gd
+    - php5-imap
 #    - php5-xcache
 #    - php5-imagick
     - php5-memcache
+    - php5-sqlite
+    - php5-xmlrpc
+    - php5-xsl
+    - php-apc
   pear:
     install: 0
     channels: [ ]
     modules: [ ]
   pecl:
+    # if you want to install pecl you also have to install pear
     install: 0
     modules: [ ]
   apc:
+    # if you want to install apc you also have to install pecl
     install: 0
   composer:
     install: 1
   mailcatcher:
-    install: 0
+    install: 1
   phpmyadmin:
     install: 0
   xdebug:
@@ -241,6 +248,7 @@ php:
     display_startup_errors: 'On'
     error_reporting: '-1'
     short_open_tag: 'On'
+    memory_limit: '512M'
   timezone: 'Europe/Berlin'
 
 phalcon:
