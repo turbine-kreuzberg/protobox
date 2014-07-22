@@ -85,6 +85,7 @@ server:
     - vim
     - memcached
     - uwsgi
+    - uwsgi-plugin-python
   ssh:
     #authorized_keys are public keys for remote machines
     #authorized_keys:
@@ -169,10 +170,9 @@ nginx:
   install: 1
   mpm_module: fpm
   vhosts:
-    - name: app
-      server_name: protobox.dev
-      server_aliases:
-        - protobox.local.de
+    - name: mybook_shop
+      server_name: mybookshop.local.de
+      server_aliases: [ ]
       www_root: /var/www/mybook_shop
       listen_port: '80'
       index_files:
