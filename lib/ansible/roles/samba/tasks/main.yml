@@ -18,8 +18,31 @@
     (echo "vagrant"; echo {{ samba.password|default("vagrant") }}) | smbpasswd -s -a {{ samba.user|default("vagrant") }}
   when: not samba_installed.stat.exists
 
-# TODO: add custom config and root/www/home shares
-#- name: add custom configuration
+- name: add custom configuration
+  template: >
+    src={{ config_file }}.j2
+    dest={{ path_samba }}/{{ config_file }}
+    owner=root
+    group=root
+    mode=0660
+  when: not samba_installed.stat.exists
+
+- name: add recycle folder for deleted files/folders
+  file: >
+    path={{ recycle_bin }}
+    state=directory
+    owner=vagrant
+    group=vagrant
+    mode=0770
+  register: recycle_folder_created
+  when: not samba_installed.stat.exists
+
+- name: symlink recycle folder to vagrant home folder
+  file: >
+    src={{ recycle_bin }}
+    dest={{ ansible_env.HOME }}/recycle_bin
+    state=link
+  when: recycle_folder_created|success
 
 - name: restart service
   service: >

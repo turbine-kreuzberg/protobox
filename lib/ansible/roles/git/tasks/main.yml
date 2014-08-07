@@ -1,0 +1,25 @@
+- name: clone repositories
+  git: >
+    repo={{ item.url }}
+    dest={{ item.path }}
+    accept_hostkey=yes
+    key_file={{item.key|default('/home/vagrant/.ssh/id_rsa')}}
+    version={{item.version|default('master')}}
+  with_items: git.repositories
+  register: git_cloned
+  ignore_errors: True
+
+- name: set owner/group for files/folders
+  file: >
+    dest={{ item.path }}
+    recurse=yes
+    owner={{item.user|default('vagrant')}}
+    group={{item.group|default('www-data')}}
+    state=directory
+  with_items: git.repositories
+  when: git_cloned.changed
+
+- name: set file/folder permissions
+  command: chmod -R g+rwX "{{ item.path }}"
+  with_items: git.repositories
+  when: git_cloned.changed

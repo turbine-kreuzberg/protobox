@@ -5,3 +5,7 @@ pkgs_samba:
 service_samba: smbd
 
 path_samba: /etc/samba
+
+config_file: smb.conf
+
+recycle_bin: /home/.recycle

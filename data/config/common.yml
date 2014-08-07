@@ -9,13 +9,13 @@ protobox:
 vagrant:
   vm:
 #    box: "chef/ubuntu-10.04"
-#    box: "chef/ubuntu-12.04"
+    box: "chef/ubuntu-12.04"
 #    box: "chef/ubuntu-12.10"
-    box: "chef/ubuntu-13.04"
+#    box: "chef/ubuntu-13.04"
 #    box: "chef/ubuntu-13.10"
     box_check_update: 'true'
     vbguest_auto_update: 'false'
-    hostname: protobox
+    hostname: protobox.local.de
     network:
       private_network: 192.168.33.20
       forwarded_port:
@@ -57,7 +57,7 @@ vagrant:
         source: ./
         target: /srv/www
         type: nfs
-        rsync__args: 
+        rsync__args:
           - '--verbose'
           - '--archive'
           - '--delete'
@@ -83,6 +83,8 @@ vagrant:
 server:
   packages:
     - vim
+  #  - memcached
+  #  - sendmail
   ssh:
     #authorized_keys are public keys for remote machines
     #authorized_keys:
@@ -104,7 +106,7 @@ server:
     #    file: /srv/www/data/ssh/git_config
     #  - name: github
     #    entry: 'host *\n\tIdentityFile ~/.ssh/github_id_rsa'
-      - name: ssh-config
+      - name: vtm-gitlab
         entry: 'Host gitlab-extern git.votum-media.net\nHostname git.votum-media.net\nIdentityFile ~/.ssh/id_rsa'
 
   dotfiles:
@@ -113,6 +115,19 @@ server:
     #files:
     #  - /srv/www/data/dot/file
     #bash_aliases: null
+
+git:
+  install: 0
+  repositories:
+    - name: my-git-repo
+      # url: git@github.com:my-namespace/my-repository.git
+      # path: /local-path/to/clone/repo/to
+      # version: SHA-1 hash, HEAD, branch name, or tag name, default: master
+      # version: master
+      # user: vagrant
+      # group: www-data
+      # ssh key, default: /home/vagrant/.ssh/ida_rsa
+      # key: ~/.ssh/ida_rsa
 
 apache:
   install: 1
@@ -171,18 +186,19 @@ hhvm:
 
 php:
   install: 1
-#  version: '53'
+  version: '53'
   # PHP 5.4 is only supported up to Ubuntu 13.04 (raring)
 #  version: '54'
-  version: '55'
+#  version: '55'
   modules:
     - php5-cli
-    - php5-intl
-    - php5-mcrypt
-    - php5-curl
-    - php5-gd
-    - php5-xcache
+#    - php5-intl
+#    - php5-mcrypt
+#    - php5-curl
+#    - php5-gd
+#    - php5-xcache
 #    - php5-imagick
+#    - php5-memcache
   pear:
     install: 0
     channels: [ ]
@@ -192,8 +208,8 @@ php:
     modules: [ ]
   apc:
     install: 0
-  composer: 
-    install: 1
+  composer:
+    install: 0
   mailcatcher:
     install: 0
   phpmyadmin:
@@ -244,7 +260,7 @@ postgresql:
     - name: app
       user: root
       password: root
-      grant: 
+      grant:
         - CREATEDB
         - SUPERUSER
       sql_file: ''
@@ -337,7 +353,7 @@ ngrok:
   #    proto: 'tcp: 22'
 
 n98magerun:
-  install: 1
+  install: 0
   # you may install n98magerun either by downloading or with composer
 #  method: download
   method: composer
@@ -346,7 +362,7 @@ samba:
   install: 1
 
 applications:
-  install: 1
+  install: 0
   magento:
     - name: test
       install: 1
@@ -382,8 +398,8 @@ applications:
   #    install: 1
   #    path: /srv/www/web/lemonstand
   #    options:
-  #      holder: 
-  #      serial: 
+  #      holder:
+  #      serial:
   #      dbhost: localhost
   #      dbname: lemonstand
   #      dbuser: root
