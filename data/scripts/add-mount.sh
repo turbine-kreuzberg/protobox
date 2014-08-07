@@ -16,3 +16,5 @@ if [ -z "$CHECK" ]; then
 
     ln -s "$MNT_DIR" /var/www/mybook_shop/media
 fi
+
+# TODO: add vagrant user to group 'www-data'

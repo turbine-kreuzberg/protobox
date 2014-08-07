@@ -51,6 +51,8 @@
     force=yes
   with_items: php.modules
   when: ansible_os_family == 'Debian' and php.modules is defined
+  notify:
+    - php-fpm-restart
 
 - name: php | install rpm php packages
   apt: >

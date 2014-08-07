@@ -137,6 +137,15 @@ git:
       # group: www-data
       # ssh key, default: /home/vagrant/.ssh/ida_rsa
       # key: ~/.ssh/ida_rsa
+    - name: mybook_portal
+      url: git@bitbucket.org:mybookde/mybook_portal.git
+      path: /var/www/mybook_portal
+      # version: SHA-1 hash, HEAD, branch name, or tag name, default: master
+      # version: master
+      # user: vagrant
+      # group: www-data
+      # ssh key, default: /home/vagrant/.ssh/ida_rsa
+      # key: ~/.ssh/ida_rsa
 
 apache:
   install: 0
@@ -174,6 +183,17 @@ nginx:
       server_name: mybookshop.local.de
       server_aliases: [ ]
       www_root: /var/www/mybook_shop
+      listen_port: '80'
+      index_files:
+        - index.html
+        - index.htm
+        - index.php
+      envvars:
+        - 'APP_ENV dev'
+    - name: mybook_portal
+      server_name: mybook.local.de
+      server_aliases: [ ]
+      www_root: /var/www/mybook_portal
       listen_port: '80'
       index_files:
         - index.html
@@ -226,7 +246,9 @@ php:
   composer:
     install: 1
   mailcatcher:
-    install: 1
+    install: 0
+    smtp_port: 1026
+    http_port: 8080
   phpmyadmin:
     install: 0
   xdebug:
@@ -234,11 +256,12 @@ php:
     webgrind: 0
     settings:
       default_enable: '1'
-      remote_autostart: '0'
-      remote_connect_back: '1'
+#      remote_autostart: '0'
+#      remote_connect_back: '1'
       remote_enable: '1'
       remote_handler: dbgp
       remote_port: '9000'
+      remote_host: '10.0.2.2'
   xhprof:
     # Note: PECL is required for installing XHProf
     install: 0
