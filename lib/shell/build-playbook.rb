@@ -135,6 +135,11 @@ def build_playbook(yaml, protobox_dir)
     entries << { "role" => "git", "when" => "git is defined and git.install == 1" }
   end
 
+  # Custom project settings/tasks
+  if !yaml['myproject'].nil? and yaml['myproject']['install'].to_i == 1
+    entries << { "role" => "myproject", "when" => "myproject is defined and myproject.install == 1" }
+  end
+
   #
   # Applications
   #

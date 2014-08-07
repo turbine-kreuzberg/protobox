@@ -116,6 +116,12 @@ server:
     #  - /srv/www/data/dot/file
     #bash_aliases: null
 
+myproject:
+  install: 0
+  scripts:
+    - name: my-custom-project-stuff
+      # path: /vagrant/data/scripts/my-custom-script.sh
+
 git:
   install: 0
   repositories:
@@ -130,7 +136,7 @@ git:
       # key: ~/.ssh/ida_rsa
 
 apache:
-  install: 1
+  install: 0
   modules:
     - rewrite
   user: vagrant
@@ -204,14 +210,18 @@ php:
     channels: [ ]
     modules: [ ]
   pecl:
+    # if you want to install pecl you also have to install pear
     install: 0
     modules: [ ]
   apc:
+    # if you want to install apc you also have to install pecl
     install: 0
   composer:
     install: 0
   mailcatcher:
     install: 0
+    smtp_port: 1026
+    http_port: 8080
   phpmyadmin:
     install: 0
   xdebug:
@@ -219,11 +229,12 @@ php:
     webgrind: 0
     settings:
       default_enable: '1'
-      remote_autostart: '0'
-      remote_connect_back: '1'
+#      remote_autostart: '0'
+#      remote_connect_back: '1'
       remote_enable: '1'
       remote_handler: dbgp
       remote_port: '9000'
+      remote_host: '10.0.2.2'
   xhprof:
     # Note: PECL is required for installing XHProf
     install: 0

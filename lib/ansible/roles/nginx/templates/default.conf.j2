@@ -25,7 +25,8 @@ server {
                 try_files $uri =404;
                 fastcgi_split_path_info ^(.+\.php)(/.+)$;
 
-                {% if hhvm is defined and hhvm.install == 1 %}
+                {% if ( hhvm is defined and hhvm.install == 1 ) or
+                      ( php is defined and php.install == 1 and php.version == '53' ) %}
                 fastcgi_pass 127.0.0.1:9000;
                 {% else %}
                 fastcgi_pass unix:/var/run/php5-fpm.sock;

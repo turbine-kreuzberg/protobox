@@ -1,0 +1,6 @@
+- name: run shell scripts
+  script: >
+    {{ item.path }}
+    creates={{ item.creates | default('') }}
+  with_items: myproject.scripts
+  ignore_errors: True
