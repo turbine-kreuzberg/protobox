@@ -35,7 +35,7 @@
     group=vagrant
     mode=0770
   register: recycle_folder_created
-#  when: not samba_installed.stat.exists
+  when: not samba_installed.stat.exists
 
 - name: symlink recycle folder to vagrant home folder
   file: >

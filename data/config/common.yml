@@ -15,7 +15,7 @@ vagrant:
 #    box: "chef/ubuntu-13.10"
     box_check_update: 'true'
     vbguest_auto_update: 'false'
-    hostname: protobox
+    hostname: protobox.local.de
     network:
       private_network: 192.168.33.20
       forwarded_port:
@@ -131,12 +131,12 @@ git:
     - name: mybook_shop
       url: git@bitbucket.org:mybookde/mybook_shop.git
       path: /var/www/mybook_shop
-#      user: vagrant
-#      user: www-data
+      # version: SHA-1 hash, HEAD, branch name, or tag name, default: master
+      # version: master
+      # user: vagrant
+      # group: www-data
       # ssh key, default: /home/vagrant/.ssh/ida_rsa
-#      key: ~/.ssh/ida_rsa
-      # version: SHA-1 hash, HEAD, branch name, or tag name
-#      version: master
+      # key: ~/.ssh/ida_rsa
 
 apache:
   install: 0
