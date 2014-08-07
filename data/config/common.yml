@@ -15,9 +15,9 @@ vagrant:
 #    box: "chef/ubuntu-13.10"
     box_check_update: 'true'
     vbguest_auto_update: 'false'
-    hostname: protobox
+    hostname: protobox.local.de
     network:
-      private_network: 192.168.33.20
+      private_network: 192.168.33.22
       forwarded_port:
         web:
           host: ''
@@ -84,7 +84,7 @@ server:
   packages:
     - vim
     - memcached
-    - uwsgi
+    - sendmail
   ssh:
     #authorized_keys are public keys for remote machines
     #authorized_keys:
@@ -108,8 +108,6 @@ server:
     #    entry: 'host *\n\tIdentityFile ~/.ssh/github_id_rsa'
       - name: vtm-gitlab
         entry: 'Host gitlab-extern git.votum-media.net\nHostname git.votum-media.net\nIdentityFile ~/.ssh/id_rsa'
-      - name: bitbucket
-        entry: 'Host bitbucket-extern bitbucket.org\nHostname bitbucket.org\nIdentityFile ~/.ssh/id_rsa'
 
   dotfiles:
     install: 0
@@ -124,6 +122,8 @@ git:
     - name: umg_eventtool
       url: git@git.votum-media.net:universal-music/event-tool.git
       path: /var/www/protobox
+      # version can be a 40-character SHA-1 hash, HEAD, a branch name, or a tag name, default: master
+      # version: master
 #      user: vagrant
 #      group: www-data
       # ssh key, default: /home/vagrant/.ssh/ida_rsa
@@ -149,8 +149,17 @@ apache:
         - 'APP_ENV dev'
       override:
         - All
-    - name: app
-      servername: protobox.local.de
+    - name: umg-events-admin
+      servername: admin.umg-events.local.de
+      serveraliases: [ ]
+      docroot: /var/www/protobox/admin
+      port: '80'
+      setenv:
+        - 'APP_ENV dev'
+      override:
+        - All
+    - name: umg-events
+      servername: umg-events.local.de
       serveraliases: [ ]
       docroot: /var/www/protobox
       port: '80'
@@ -213,7 +222,7 @@ php:
   composer:
     install: 0
   mailcatcher:
-    install: 1
+    install: 0
   phpmyadmin:
     install: 0
   xdebug:

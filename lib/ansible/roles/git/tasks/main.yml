@@ -4,6 +4,7 @@
     dest={{ item.path }}
     accept_hostkey=yes
     key_file={{item.key|default('/home/vagrant/.ssh/id_rsa')}}
+    version={{item.version|default('master')}}
   with_items: git.repositories
   register: git_cloned
 #  remote_user: vagrant
